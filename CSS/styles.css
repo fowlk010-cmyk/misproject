@@ -1,0 +1,183 @@
+/* style.css */
+
+
+/* ===== VARIABLES ===== */
+:root {
+   /* Picasso's "The Tragedy" Color Palette */
+   --primary-color: #1B3C59;    /* Deep Prussian Blue */
+   --primary-light: #2A5475;
+   --primary-dark: #0F2538;
+   
+   --secondary-color: #8B7355;  /* Muted Earth Brown */
+   --secondary-light: #A69077;
+   --secondary-dark: #6D5842;
+   
+   --background-color: #E5E6E4;  /* Pale Stone */
+   --background-gradient-1: #D6D9DB;  /* Cool Gray */
+   --background-gradient-2: #C8CED2;  /* Deep Gray */
+   
+   --text-color: #2B2B2B;  /* Deep Charcoal */
+   --text-muted: #686B6E;  /* Muted Gray */
+   --gray: #B4B8BC;  /* Coastal Gray */
+   
+   /* Accent Colors from the Painting */
+   --accent-blue: #34558B;  /* Mediterranean Blue */
+   --accent-sand: #C4B5A0;  /* Sandy Beige */
+   --accent-shadow: #252F38;  /* Deep Shadow */
+}
+
+
+/* ===== RESET & BASE STYLES ===== */
+* {
+   margin: 0;
+   padding: 0;
+   box-sizing: border-box;
+}
+
+
+body {
+   font-family: 'Segoe UI', system-ui, -apple-system, Arial, sans-serif;
+   line-height: 1.6;
+   color: var(--text-color);
+   background: linear-gradient(145deg, 
+      var(--background-color) 0%,
+      var(--background-gradient-1) 45%,
+      var(--primary-light) 100%
+   );
+   background-attachment: fixed;
+   min-height: 100vh;
+   position: relative;
+}
+
+/* Adding a subtle texture overlay inspired by canvas texture */
+body::before {
+   content: '';
+   position: fixed;
+   top: 0;
+   left: 0;
+   width: 100%;
+   height: 100%;
+   background-image: url("data:image/png;base64,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");
+   opacity: 0.02;
+   pointer-events: none;
+}
+
+
+/* ===== NAVIGATION ===== */
+nav {
+   background: linear-gradient(to right, var(--accent-shadow), var(--primary-color));
+   padding: 1rem;
+   box-shadow: 0 3px 20px rgba(11, 19, 27, 0.12);
+   border-bottom: 1px solid var(--accent-sand);
+   backdrop-filter: blur(8px);
+}
+
+nav ul {
+   list-style: none;
+   display: flex;
+   justify-content: center;
+   gap: 2rem;
+   max-width: 1200px;
+   margin: 0 auto;
+}
+
+nav a {
+   color: white;
+   text-decoration: none;
+   padding: 0.5rem 1rem;
+   border-radius: 6px;
+   transition: all 0.3s ease;
+   position: relative;
+   font-weight: 500;
+}
+
+nav a:hover {
+   background-color: rgba(255, 255, 255, 0.15);
+   transform: translateY(-1px);
+}
+
+nav a::after {
+   content: '';
+   position: absolute;
+   bottom: 0;
+   left: 50%;
+   width: 0;
+   height: 2px;
+   background: white;
+   transition: all 0.3s ease;
+   transform: translateX(-50%);
+}
+
+nav a:hover::after {
+   width: 80%;
+}
+
+
+/* ===== MAIN CONTENT ===== */
+main {
+   max-width: 1200px;
+   margin: 2rem auto;
+   padding: 0 2rem;
+}
+
+
+h1 {
+   color: var(--primary-color);
+   margin-bottom: 1rem;
+   font-size: 2.5rem;
+}
+
+
+h2 {
+   color: var(--primary-color);
+   margin: 2rem 0 1rem 0;
+}
+
+
+section {
+   margin-bottom: 3rem;
+}
+
+
+img {
+   max-width: 100%;
+   height: auto;
+   border-radius: 8px;
+}
+
+
+/* ===== RESPONSIVE DESIGN ===== */
+/* Mobile phones */
+@media screen and (max-width: 768px) {
+   nav ul {
+       flex-direction: column;
+       gap: 0.5rem;
+   }
+
+
+   main {
+       padding: 0 1rem;
+   }
+
+
+   h1 {
+       font-size: 2rem;
+   }
+}
+
+
+/* Tablets */
+@media screen and (min-width: 769px) and (max-width: 1024px) {
+   nav ul {
+       gap: 1rem;
+   }
+}
+
+
+/* ===== FOOTER ===== */
+footer {
+   background-color: var(--gray);
+   text-align: center;
+   padding: 2rem;
+   margin-top: 4rem;
+

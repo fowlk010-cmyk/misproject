@@ -1,0 +1,123 @@
+
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<title>Resume — Jackson Fowlkes</title>
+		<style>
+			:root {
+				--bg: #ffffff;
+				--text: #111827;
+				--accent: #1f6feb;
+				--card-bg: rgba(255, 255, 255, 0.95);
+				--shadow: rgba(0, 0, 0, 0.15);
+			}
+			
+			html, body {
+				height: 100%;
+				margin: 0;
+				font-family: Segoe UI, Roboto, Arial, sans-serif;
+				color: var(--text);
+				position: relative;
+				background: url('../images/Sunset.jpg') center center fixed;
+				background-size: cover;
+			}
+			
+			/* Overlay to ensure readability */
+			body::before {
+				content: '';
+				position: fixed;
+				top: 0;
+				left: 0;
+				width: 100%;
+				height: 100%;
+				background: linear-gradient(135deg, 
+					rgba(255,255,255,0.4),
+					rgba(0,0,0,0.2)
+				);
+				z-index: 1;
+			}
+			
+			.wrap {
+				max-width: 850px;
+				margin: 28px auto;
+				padding: 28px;
+				position: relative;
+				z-index: 2;
+			}
+			
+			.card {
+				background: var(--card-bg);
+				border-radius: 12px;
+				padding: 28px 32px;
+				box-shadow: 0 8px 32px var(--shadow);
+				backdrop-filter: blur(8px);
+				border: 1px solid rgba(255,255,255,0.2);
+				transition: transform 0.3s ease;
+			}
+			
+			.card:hover {
+				transform: translateY(-2px);
+			}
+			
+			pre.resume {
+				font-family: inherit;
+				white-space: pre-wrap;
+				word-break: break-word;
+				font-size: 16px;
+				line-height: 1.5;
+				margin: 0;
+				color: var(--text);
+			}
+			
+			/* optional small print styling */
+			code {
+				background: rgba(243,244,246,0.8);
+				padding: 2px 6px;
+				border-radius: 4px;
+				font-size: 0.9em;
+				backdrop-filter: blur(4px);
+			}
+			
+			/* Responsive adjustments */
+			@media (max-width: 768px) {
+				.wrap {
+					padding: 16px;
+					margin: 16px auto;
+				}
+				
+				.card {
+					padding: 20px 24px;
+					background: rgba(255, 255, 255, 0.97);
+				}
+			}
+		</style>
+	</head>
+	<body>
+		<div class="wrap">
+			<div class="card">
+<pre class="resume" id="resumeText" style="min-height: 300px;"></pre>
+			</div>
+		</div>
+	</body>
+	<script>
+	document.addEventListener('DOMContentLoaded', function() {
+		const text = `Jackson Fowlkes\n Brooklyn Park, MN \n • (952-242-7613) \n fowlk010@d.umn.edu)\nUniversity of Minnesota Duluth — Duluth, MN\n Bachelor of Business Administration, Financial Markets Finance\n Expected Graduation: 2028\nUniversity of Minnesota Duluth Bulldogs — Men’s Basketball\n Guard, Redshirt Freshman | 2024 – Present\n Compete in NCAA Division II Northern Sun Intercollegiate Conference (NSIC). Train 20+ hours per week while maintaining a full-time academic schedule, demonstrating discipline and time management. Build leadership, teamwork, and communication skills through collaboration with coaches and teammates. Represent UMD athletics at university and community events.\nPark Center High School — Men’s Basketball\n Guard | 2019 – 2023\n Minnesota All-State Tournament Team (2022–23). All-Conference Selection: Junior & Senior seasons. Recognized for resilience and competitive excellence, making All-Tournament Team as a junior while coming off the bench — a rare program milestone. Helped lead the team to state tournament success, finishing among top scorers.\nStudent-Athlete Leadership Council (UMD) — Member | 2024 – Present\n Advise athletic departments on student-athlete priorities and well-being. Partner with peers to improve athlete academic resources and community outreach.\nYouth Basketball Camp Volunteer — Brooklyn Park, MN | Summers 2021–2023\n Mentored 50+ young athletes, teaching fundamentals, teamwork, and confidence. Built community engagement and developed leadership through coaching.\nMinnesota All-State Tournament Team (2022–23). Two-time All-Conference Selection (2021–22, 2022–23). High School State Tournament Participant (multiple years). Academic Honor Roll Student-Athlete (UMD, 2024).`;
+		const el = document.getElementById('resumeText');
+		el.textContent = '';
+		let i = 0;
+		const total = text.length;
+		const duration = 6000; // ms
+		const interval = duration / total;
+		function typeWriter() {
+			if (i <= total) {
+				el.textContent = text.slice(0, i);
+				i++;
+				setTimeout(typeWriter, interval);
+			}
+		}
+		typeWriter();
+	});
+	</script>
+</html>

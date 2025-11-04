@@ -1,0 +1,51 @@
+<!DOCTYPE>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jackson Fowlkes Personal Website</title>
+    <link rel="stylesheet" href="CSS/styles.css">
+</head>
+    <h3>Hello, my name is Jackson Fowlkes and this is my personal website.</h3>
+    <a href=""></a>
+    <!-- Navigation Menu (same on all pages) -->
+    <nav>
+        <ul>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="hobbies.html">Hobbies</a></li>
+            <li><a href="discover.html">Discover UMD</a></li>
+            <li><a href="resume.html">Resume</a></li>
+            <li><a href="career.html">Career</a></li>
+            <li><a href="game.html" id="gameBtn">Game</a></li>
+        </ul>
+    </nav>
+    <h1>Welcome to my home Page</h1>
+    
+    <div style="margin: 2rem 0; text-align: center;">
+        <img src="../images/Headshot.webp" alt="Jackson Fowlkes Headshot" style="max-width: 300px; height: auto; border-radius: 8px; box-shadow: 0 4px 18px rgba(0,0,0,0.10);">
+    </div>
+
+    <!-- Your page content goes here -->
+    <main>
+        <!-- Page-specific content -->
+    </main>
+
+    <!-- Footer (same on all pages) -->
+    <footer>
+        <p>&copy; 2025 Jackson Fowlkes. All rights reserved.</p>
+    </footer>
+
+    <script>
+    document.getElementById('gameBtn').addEventListener('click', function(e) {
+        // Open game.html in the same tab
+        e.preventDefault();
+        window.location.href = 'game.html';
+        // After navigation, send message to trigger chip rain
+        setTimeout(function() {
+            window.postMessage('triggerChipRain', '*');
+        }, 300);
+    });
+    </script>
+    <script src="js/script.js"></script>
+</body>
+</html>

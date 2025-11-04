@@ -1,0 +1,453 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<title>Hobbies — Jackson Fowlkes</title>
+		<style>
+			:root {
+				--bg: #fff;
+				--card: rgba(251,253,255,0.95);
+				--text: #0f172a;
+				--muted: #475569;
+				--accent: #2563eb;
+				--accent-light: #3b82f6;
+				--shadow: rgba(2,6,23,0.15);
+				--gradient-1: #60a5fa;
+				--gradient-2: #3b82f6;
+				--highlight: #f59e0b;
+				--chain-color: #FFD700;
+				--chain-glow: rgba(255, 215, 0, 0.3);
+			}
+
+            /* Money Rain Animation */
+            @keyframes fadeInOut {
+                0% { opacity: 0; }
+                10% { opacity: 1; }
+                90% { opacity: 1; }
+                100% { opacity: 0; }
+            }
+
+            @keyframes falling {
+                0% {
+                    transform: translateY(-120px) translateX(-50%) rotateX(45deg) rotate(0deg);
+                }
+                50% {
+                    transform: translateY(50vh) translateX(calc(-50% + 100px)) rotateX(-20deg) rotate(180deg);
+                }
+                100% {
+                    transform: translateY(100vh) translateX(-50%) rotateX(45deg) rotate(360deg);
+                }
+            }
+
+            @keyframes swaying {
+                0%, 100% {
+                    transform: translateX(-10px) rotateY(-10deg);
+                }
+                50% {
+                    transform: translateX(10px) rotateY(10deg);
+                }
+            }
+
+            .money-container {
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                pointer-events: none;
+                z-index: 9999;
+                overflow: hidden;
+                perspective: 1000px;
+            }
+
+            .money-bill {
+                position: absolute;
+                width: 280px;
+                height: 120px;
+                background-image: url('../images/Mula.webp');
+                background-size: contain;
+                background-repeat: no-repeat;
+                opacity: 0;
+                will-change: transform;
+                filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.3));
+                transform-style: preserve-3d;
+                backface-visibility: visible;
+                animation: 
+                    falling 7s linear infinite,
+                    swaying 3s ease-in-out infinite,
+                    fadeInOut 7s linear infinite;
+                transform-origin: center;
+            }
+
+            .money-bill::after {
+                content: '';
+                position: absolute;
+                top: 0;
+                left: 0;
+                right: 0;
+                bottom: 0;
+                background: linear-gradient(
+                    45deg,
+                    rgba(255, 255, 255, 0.1),
+                    rgba(255, 255, 255, 0.2),
+                    rgba(255, 255, 255, 0.1)
+                );
+                background-size: 200% 200%;
+                animation: moneyShine 1.5s linear infinite;
+            }
+
+            @keyframes moneyShine {
+                0% {
+                    background-position: 0% 0%;
+                }
+                100% {
+                    background-position: 200% 200%;
+                }
+            }
+
+			@keyframes gradientBG {
+				0% { background-position: 0% 50%; }
+				50% { background-position: 100% 50%; }
+				100% { background-position: 0% 50%; }
+			}
+
+			html,body {
+				height: 100%;
+				margin: 0;
+				font-family: 'Segoe UI', Roboto, Arial, sans-serif;
+				color: var(--text);
+				background: url('../images/sunset-on-monterey-bay-1024x771.jpg') center center fixed;
+				background-size: cover;
+				position: relative;
+			}
+
+			body::before {
+				content: '';
+				position: fixed;
+				top: 0;
+				left: 0;
+				width: 100%;
+				height: 100%;
+				background: linear-gradient(135deg, 
+					rgba(255,255,255,0.4), 
+					rgba(0,0,0,0.2)
+				);
+				z-index: 1;
+			}
+
+			.container {
+				max-width: 900px;
+				margin: 28px auto;
+				padding: 22px;
+				position: relative;
+				z-index: 2;
+			}
+
+			.card {
+				background: var(--card);
+				border-radius: 20px;
+				padding: 32px;
+				box-shadow: 
+					0 8px 30px var(--shadow),
+					0 0 0 1px rgba(255,255,255,0.3) inset;
+				backdrop-filter: blur(12px);
+				border: 1px solid rgba(255,255,255,0.2);
+				transition: transform 0.3s ease, box-shadow 0.3s ease;
+			}
+
+			.card:hover {
+				transform: translateY(-5px);
+				box-shadow: 
+					0 12px 40px var(--shadow),
+					0 0 0 1px rgba(255,255,255,0.4) inset;
+			}
+			h1 {
+				font-size: 2.5rem;
+				margin-bottom: 12px;
+				color: var(--accent);
+				text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+				background: linear-gradient(135deg, var(--gradient-1), var(--gradient-2));
+				-webkit-background-clip: text;
+				-webkit-text-fill-color: transparent;
+				position: relative;
+				display: inline-block;
+			}
+
+			h1::after {
+				content: '';
+				position: absolute;
+				bottom: -8px;
+				left: 0;
+				width: 60px;
+				height: 4px;
+				background: linear-gradient(to right, var(--gradient-1), var(--gradient-2));
+				border-radius: 2px;
+			}
+
+			p.lead {
+				color: var(--muted);
+				margin: 20px 0;
+				font-size: 1.1rem;
+				font-weight: 500;
+				line-height: 1.6;
+				max-width: 600px;
+			}
+
+			.grid {
+				display: grid;
+				grid-template-columns: 1fr 320px;
+				gap: 30px;
+				align-items: start;
+				margin-top: 30px;
+			}
+
+			img.hobby {
+				width: 100%;
+				height: 200px;
+				border-radius: 12px;
+				display: block;
+				object-fit: cover;
+				box-shadow: 0 8px 20px var(--shadow);
+				transition: all 0.4s ease;
+			}
+
+			img.hobby:hover {
+				transform: translateY(-5px) scale(1.02);
+				box-shadow: 0 12px 30px var(--shadow);
+			}
+
+			figure {
+				margin: 0;
+				position: relative;
+				overflow: hidden;
+				border-radius: 12px;
+			}
+
+			figcaption {
+				font-size: 0.9rem;
+				color: var(--muted);
+				margin-top: 12px;
+				text-align: center;
+				font-weight: 500;
+				opacity: 0.9;
+				transition: opacity 0.3s ease;
+			}
+
+			figure:hover figcaption {
+				opacity: 1;
+				color: var(--accent);
+			}
+
+			.section {
+				margin-top: 24px;
+				line-height: 1.7;
+				font-size: 1rem;
+				background: rgba(255,255,255,0.7);
+				padding: 20px;
+				border-radius: 12px;
+				backdrop-filter: blur(8px);
+				border: 1px solid rgba(255,255,255,0.3);
+				transition: transform 0.3s ease, box-shadow 0.3s ease;
+			}
+
+			.section:hover {
+				transform: translateY(-2px);
+				box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+				background: rgba(255,255,255,0.8);
+			}
+			.image-gallery {
+				position: relative;
+			}
+
+			.image-gallery figure {
+				margin-bottom: 30px;
+				position: relative;
+			}
+
+			.image-gallery figure::before {
+				content: '';
+				position: absolute;
+				top: 0;
+				left: 0;
+				width: 100%;
+				height: 100%;
+				background: linear-gradient(to top, 
+					rgba(0,0,0,0.2), 
+					transparent
+				);
+				border-radius: 12px;
+				opacity: 0;
+				transition: opacity 0.3s ease;
+				z-index: 1;
+			}
+
+			.image-gallery figure:hover::before {
+				opacity: 1;
+			}
+
+			/* Highlight for active sections */
+			.section strong {
+				color: var(--accent);
+				font-weight: 600;
+			}
+
+			/* Custom scrollbar */
+			::-webkit-scrollbar {
+				width: 10px;
+			}
+
+			::-webkit-scrollbar-track {
+				background: rgba(255,255,255,0.1);
+			}
+
+			::-webkit-scrollbar-thumb {
+				background: var(--accent-light);
+				border-radius: 5px;
+			}
+
+			::-webkit-scrollbar-thumb:hover {
+				background: var(--accent);
+			}
+
+			/* Responsive Design */
+			@media (max-width: 800px) {
+				.grid {
+					grid-template-columns: 1fr;
+				}
+
+				.section {
+					background: rgba(255,255,255,0.8);
+					margin-top: 16px;
+					padding: 16px;
+				}
+
+				h1 {
+					font-size: 2rem;
+				}
+
+				p.lead {
+					font-size: 1rem;
+				}
+
+				.card {
+					padding: 24px;
+				}
+
+				.image-gallery {
+					margin-top: 30px;
+				}
+
+				img.hobby {
+					height: 240px;
+				}
+			}
+
+			/* Animation for sections */
+			@keyframes fadeIn {
+				from { opacity: 0; transform: translateY(20px); }
+				to { opacity: 1; transform: translateY(0); }
+			}
+
+			.section {
+				animation: fadeIn 0.5s ease-out forwards;
+			}
+
+			.section:nth-child(2) { animation-delay: 0.1s; }
+			.section:nth-child(3) { animation-delay: 0.2s; }
+			.section:nth-child(4) { animation-delay: 0.3s; }
+			.section:nth-child(5) { animation-delay: 0.4s; }
+		</style>
+        <script>
+            document.addEventListener('DOMContentLoaded', function() {
+                // Create money container
+                const moneyContainer = document.createElement('div');
+                moneyContainer.className = 'money-container';
+                document.body.appendChild(moneyContainer);
+
+                // Create money bills
+                for (let i = 0; i < 100; i++) {
+                    setTimeout(() => {
+                        const bill = document.createElement('div');
+                        bill.className = 'money-bill';
+                        
+                        // Random starting position
+                        const startX = Math.random() * 100;
+                        bill.style.left = `${startX}%`;
+                        
+                        // Random rotation and duration
+                        const duration = 3 + Math.random() * 2;
+                        const delay = Math.random() * 2;
+                        
+                        // Apply animations
+                        bill.style.animation = `
+                            falling ${duration}s linear ${delay}s forwards,
+                            fadeInOut ${duration}s ease-in-out ${delay}s forwards
+                        `;
+                        
+                        // Add swaying motion
+                        bill.style.transform = `rotate(${Math.random() * 360}deg)`;
+                        
+                        moneyContainer.appendChild(bill);
+                        
+                        // Remove bill after animation
+                        setTimeout(() => {
+                            bill.remove();
+                        }, (duration + delay) * 1000);
+                    }, i * 30); // Stagger the creation of bills
+                }
+
+                // Add money sound effect
+                const cashSound = new Audio('data:audio/mp3;base64,SUQzBAAAAAAAI1RTU0UAAAAPAAADTGF2ZjU4LjIwLjEwMAAAAAAAAAAAAAAA//tUAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAASW5mbwAAAA8AAAAGAAADAABgYGBgYGBgYGBgYGBgYGBgYGBgYGBgYGBghoaGhoaGhoaGhoaGhoaGhoaGhoaGhoaGhoampqampqampqampqampqampqampqampqamxsbGxsbGxsbGxsbGxsbGxsbGxsbGxsbGxsb///////////////////////////////////////////8AAAAATGF2YzU4LjM1AAAAAAAAAAAAAAAAJANAAAAAAAAAAwAr/UGJBAAAAAAAAAAAAAAAAAAAAP/7dGQAAANUAEn5ngAQj4AJPzPAAgEAGmGQAACAAANMMAAE8qqrV4AAAVVVVVX/+qqqqv/+qqqqqqrwAAACqv///wqqqv//Baqq///CsAAAAABX4AAAVX/8QGAAAAAAAAqAMw+APAEg+D4fDAPh8Hg8DwfBmZhh+D4fD78Hw+D4M//B8Hg+DwfB8Hw+DwfD78mB4Hg+DwfD4Ph///B8Hg+Hwf//wfB4Pg+D//+DwfB8Pg///B8Hw+D4fD//8Hg+DwfB4P//wfB8Hg+D4Pg8H3/B4Pg+H3//4Pg+H3/B8P//g+Dw+/4Ph///B8Pg+H4Pg+D4Ph8Hg+D4Mz/B8Hg+DwfB8Hw+D4Ph9+TA8DwfB4Ph8Hw///g+DwfB8P//4Ph8HwfD///B4Pg+Dwf//wfD4Ph8Hw///g8HwfB8Hg///B8HwfB8HwfB8HwfD4Pg8Hg+DMww/B8Pg+H34Ph8HwZn//4Ph8HwfB8HwfD4Ph9/wBEQAAAABX/9bswAAAAAAAAFYOJpGEoRjKMwijwfh4AAQAAI+D4eDAABAAAIeD4PAEAHg8HgeAAAAQAD4Ph4AAAAIAB8Hg8AAAAAQD4Ph8HgAAAAgH3/D4PB8AAAABAf/+Hg+DwAAAAQD//h4Pg+AAAABAf/+HwfB4AAAAIA//+Hg+DwAAAAQD//w+D4PAAAAIBA//8Pg+DwAAAAQB//4eD4PAAAAAIA//8Ph8HgAAAAgD//h8HweAAAACAP//D4Pg8AAAAEAP/+Hg+DwAAAAQB//4fB8HgAAAAgD//w+D4PAAAAIBA//8Pg+DwAAAAQB//4eD4PAAAAAIA//8Pg+DwAAAAQA//4fB8HgAAAAgD//h8HweAAAABAH//D4Pg8AAAAEAP/+Hg+D4AAAAIAP/+HwfB4AAAAIA//8Ph8HgAAAAgB//w8HweAAAACAH//D4Pg8AAAAEAP/+Hg+DwAAAAQA//4fB8HgAAAAgD//h8HweAAAABAD//w+D4PAAAAIBA//8Pg+DwAAAAQB//4eD4PAAAAAIA//8Pg+DwAAAAQA//4fB8HgAAAAgD//h8HweAAAABAH//D4Pg8AAAAEAP/+Hg+D4AAAAIAP/+HwfB4AAAAIA//8Ph8HgAAAAgB//w8HweAAAACAH//D4Pg8AAAAEAP/+Hg+DwAAAAQA//4fB8HgAAAAgD//h8HweAAAABAD//w+D4PAAAAIBA//8Pg+DwAAAAQB//4eD4PAAAAAIA//8Pg+DwAAAAQA//4fB8HgAAAAgD//h8HweAAAABAH//D4Pg8AAAAEAP/+Hg+D4AAAAIAP/+HwfB4AAAAIA//8Ph8HgAAAAgD//h4Pg8AAAAEAP/+Hg+DwAAAAQA//4fB8HgAAAAgD//h8HweAAAABAD//w+D4PAAAAIBA//8Pg+DwAAAAQB//4eD4PAAAAAIA//8Pg+DwAAAAQA//4fB8HgAAAAgD//h8HweAAAABAH//D4Pg8AAAAEAP/+Hg+D4AAAAIAP/+HwfB4AAAAIA//8Ph8HgAAAAgD//h4Pg8AAAAEAP/+Hg+DwAAAAQA//4fB8HgAAAAgD//h8HweAAAABAD//w+D4PAAAAIBA//8Pg+DwAAAAQB//4eD4PAAAAAIA//8Pg+DwAAAAQA//4fB8HgAAAAgD//h8HweAAAABAH//D4Pg8AAAAEAP/+Hg+D4AAAAIAP/+HwfB4AAAAIA//8Ph8HgAAAAgD//h4Pg8AAAAEAP/+Hg+DwAAAAQA//4fB8HgAAAAgD//h8HweAAAABAD//w+D4PAAAAIBA//8Pg+DwAAAAQB//4eD4PAAAAAIA//8Pg+DwAAAAQA//4fB8HgAAAAgD//h8HweAAAABAH//D4Pg8AAAAEAP/+Hg+D4AAAAIAP/+HwfB4AAAAIA//8Ph8HgAAAAgD//h4Pg8AAAAEAP/+Hg+DwAAAAQA//4fB8HgAAAAgD//h8HweAAAABAD//w+D4PAAAAIBA//8Pg+DwAAAAQB//4eD4PAAAAAIA//8Pg+DwAAAAQA//4fB8HgAAAAgD//h8HweAAAABAH//D4Pg8AAAAEAP/+Hg+D4AAAAIAP/+HwfB4AAAAIA//8Ph8HgAAAAgD//h4Pg8AAAAEAP/+Hg+DwAAAAQA//4fB8HgAAAAgD//h8HweAAAABAD//w+D4PAAAAIBA//8Pg+DwAAAAQB//4eD4PAAAAAIA//8Pg+DwAAAAQA//4fB8HgAAAAgD//h8HweAAAABAH//D4Pg8AAAAEAP/+Hg+D4AAAAIAP/+HwfB4AAAAIA//8Ph8HgAAAAgD//h4Pg8AAAAEAP/+Hg+DwAAAAQA//4fB8HgAAAAgD//h8HweAAAABAD//w+D4PAAAAIBA//8Pg+DwAAAAQB//4eD4PAAAAAIA//8Pg+DwAAAAQA//4fB8HgAAAAgD//h8HweAAAABAH//D4Pg8AAAAEAP/+Hg+D4AAAAIAP/+HwfB4AAAAIA//8Ph8HgAAAAgD//h4Pg8AAAAEAP/+Hg+DwAAAAQA//4fB8HgAAAAgD//h8HweAAAABAD//w+D4PAAAAIBA//8Pg+DwAAAAQB//4eD4PAAAAAIA//8Pg+DwAAAAQA//4fB8HgAAAAgD//h8HweAAAABAH//D4Pg8AAAAEAP/+Hg+D4AAAAIAP/+HwfB4AAAAIA//8Ph8HgAAAAgD//h4Pg8AAAAEAP/+Hg+DwAAAAQA//4fB8HgAAAAgD//h8HweAAAABAD//w+D4PAAAAIBA//8Pg+DwAAAAQB//4eD4PAAAAAIA//8Pg+DwAAAAQA//4fB8HgAAAAgD//h8HweAAAABAH//D4Pg8AAAAEAP/+Hg+D4AAAAIAP/+HwfB4AAAAIA//8Ph8HgAAAAgD//h4Pg8AAAAEAP/+Hg+DwAAAAQA//4fB8HgAAAAgD//h8HweAAAABAD//w+D4PAAAAIBA//8Pg+DwAAAAQB//4eD4PAAAAAIA//8Pg+DwAAAAQA//4fB8HgAAAAgD//h8HweAAAABAH//D4Pg8AAAAEAP/+Hg+D4AAAAIAP/+HwfB4AAAAIA//8Ph8HgAAAAgD//h4Pg8AAAAEAP/+Hg+DwAAAAQA//4fB8HgAAAAgD//h8HweAAAABAD//w+D4PAAAAIBA//8Pg+DwAAAAQB//4eD4PAAAAAIA//8Pg+DwAAAAQA//4fB8HgAAAAgD//h8HweAAAABAH//D4Pg8AAAAEAP/+Hg+D4AAAAIAP/+HwfB4AAAAIA//8Ph8HgAAAAgB//w+D4Pg8HwfB8HwfB8HweD4PB8HwfB8Hg+D4Pg+D4Ph8HwfB8HweD4Ph8Hg+DwfB8HwfB8Hw');
+                cashSound.volume = 0.3;
+                cashSound.play();
+
+                // Remove container after animation
+                setTimeout(() => {
+                    moneyContainer.remove();
+                }, 7000);
+            });
+        </script>
+	</head>
+	<body>
+		<div class="container">
+			<div class="card">
+				<h1>Hobbies</h1>
+				<p class="lead">Playing basketball, gaming with friends, shopping, and listening to music are some of my favorite ways to spend time.</p>
+
+				<div class="grid">
+					<div>
+						<p class="section">Basketball is very important to me — whenever I feel bored, happy, sad, nervous, or excited it’s the best escape because of the feeling the game brings. It helped me earn a college scholarship, which eased the financial burden on my parents. Basketball means the world to me; I love the feelings I get on the court and the memories I’ve made off it.</p>
+
+						<p class="section">I’ve met many friends through basketball and played in places like the Target Center and other big venues. I enjoy continued growth and improvement — there’s always more to learn.</p>
+
+						<p class="section">Outside of basketball, I relax by playing video games with friends. After a long day of school, workouts, and practice, gaming is a great way to unwind and stay connected.</p>
+
+						<p class="section">I also enjoy shopping and the excitement of finding something new — visiting the Mall of America is a favorite activity with friends.</p>
+
+						<p class="section">Listening to music is another passion. I listen while doing homework, eating, practicing, or just relaxing. My AirPods are basically my best friend. My favorite artist is Drake; my favorite album is "Take Care." I’ve listened to all of his albums in chronological order and consider myself a big fan.</p>
+
+						<p class="section">Ultimately, friends are more important than any hobby. We love attending parties, sporting events, and hanging out — it's always a good time when we're together.</p>
+					</div>
+
+					<aside class="image-gallery">
+						<figure>
+							<img class="hobby" src="../images/Basketball.jpeg" alt="Basketball game in action" />
+							<figcaption>Basketball</figcaption>
+						</figure>
+
+						<figure>
+							<img class="hobby" src="../images/Take Care.jpg" alt="Take Care album art" />
+							<figcaption>Album: Take Care</figcaption>
+						</figure>
+						
+						<figure>
+							<img class="hobby" src="../images/Friends.jpeg" alt="Friends hanging out together" />
+							<figcaption>Hanging with Friends</figcaption>
+						</figure>
+					</aside>
+				</div>
+			</div>
+		</div>
+	</body>
+</html>
