@@ -34,17 +34,6 @@
 			margin-bottom: 0;
 		}
 	</style>
-	<style>
-		.fireworks-canvas {
-			position: fixed;
-			top: 0;
-			left: 0;
-			width: 100vw;
-			height: 100vh;
-			pointer-events: none;
-			z-index: 10000;
-		}
-	</style>
 </head>
 <body>
 	<div class="container">
@@ -71,81 +60,4 @@
 		</p>
 	</div>
 </body>
-</script>
-<script>
-// Canvas fireworks animation, double size and double amount
-document.addEventListener('DOMContentLoaded', function() {
-	const canvas = document.createElement('canvas');
-	canvas.className = 'fireworks-canvas';
-	document.body.appendChild(canvas);
-	const ctx = canvas.getContext('2d');
-	function resize() {
-		canvas.width = window.innerWidth;
-		canvas.height = window.innerHeight;
-	}
-	resize();
-	window.addEventListener('resize', resize);
-
-	function randomColor() {
-		const colors = ['#ff3', '#f36', '#3cf', '#6f3', '#f93', '#fff', '#f0f', '#0ff'];
-		return colors[Math.floor(Math.random() * colors.length)];
-	}
-	function Firework() {
-		const x = Math.random() * canvas.width * 0.8 + canvas.width * 0.1;
-		const y = Math.random() * canvas.height * 0.3 + canvas.height * 0.1;
-		const count = 48 + Math.floor(Math.random() * 24); // doubled
-		const speed = 4 + Math.random() * 2; // doubled
-		const color = randomColor();
-		const particles = [];
-		for (let i = 0; i < count; i++) {
-			const angle = (Math.PI * 2 * i) / count;
-			particles.push({
-				x,
-				y,
-				vx: Math.cos(angle) * speed * (0.7 + Math.random() * 0.6),
-				vy: Math.sin(angle) * speed * (0.7 + Math.random() * 0.6),
-				alpha: 1,
-				color,
-				size: 4 + Math.random() * 4 // doubled size
-			});
-		}
-		return particles;
-	}
-	let fireworks = [];
-	let running = true;
-	function launchFirework() {
-		fireworks.push(...Firework());
-	}
-	function animate() {
-		ctx.clearRect(0, 0, canvas.width, canvas.height);
-		fireworks.forEach(p => {
-			ctx.globalAlpha = p.alpha;
-			ctx.beginPath();
-			ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
-			ctx.fillStyle = p.color;
-			ctx.fill();
-		});
-		fireworks.forEach(p => {
-			p.x += p.vx;
-			p.y += p.vy;
-			p.vx *= 0.97;
-			p.vy *= 0.97;
-			p.vy += 0.04;
-			p.alpha *= 0.96;
-		});
-		fireworks = fireworks.filter(p => p.alpha > 0.05);
-		if (running) requestAnimationFrame(animate);
-	}
-	// Launch double the fireworks for 4.5 seconds
-	let fireworkInterval = setInterval(() => {
-		for (let i = 0; i < 4 + Math.floor(Math.random() * 2); i++) launchFirework();
-	}, 250);
-	animate();
-	setTimeout(() => {
-		clearInterval(fireworkInterval);
-		running = false;
-		setTimeout(() => { canvas.remove(); }, 800);
-	}, 4500);
-});
-</script>
 </html>
